@@ -21,6 +21,8 @@ basic.forever(function () {
         }
         if (maqueen.Ultrasonic(PingUnit.Centimeters) > FollowDistanceMax && maqueen.Ultrasonic(PingUnit.Centimeters) <= TooFar) {
             maqueen.motorRun(maqueen.Motors.All, maqueen.Dir.CW, Speed)
+            maqueen.writeLED(maqueen.LED.LEDLeft, maqueen.LEDswitch.turnOn)
+            maqueen.writeLED(maqueen.LED.LEDRight, maqueen.LEDswitch.turnOn)
             basic.showLeds(`
                 # # # # #
                 # . . . .
@@ -28,6 +30,9 @@ basic.forever(function () {
                 # . . . .
                 # . . . .
                 `)
+        } else {
+            maqueen.writeLED(maqueen.LED.LEDLeft, maqueen.LEDswitch.turnOff)
+            maqueen.writeLED(maqueen.LED.LEDRight, maqueen.LEDswitch.turnOff)
         }
         if (maqueen.Ultrasonic(PingUnit.Centimeters) >= FollowDistanceMin && maqueen.Ultrasonic(PingUnit.Centimeters) <= FollowDistanceMax) {
             maqueen.motorStop(maqueen.Motors.All)
@@ -38,6 +43,7 @@ basic.forever(function () {
             basic.showIcon(IconNames.Sad)
         }
     } else {
+        maqueen.motorStop(maqueen.Motors.All)
         basic.showLeds(`
             . . . # .
             # . # . #
